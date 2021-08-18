@@ -1,0 +1,25 @@
+---
+# Setup OCP4 DHCP Server on Helper Node
+
+- hosts: all
+  vars_files:
+    - ../vars/main.yml
+  handlers:
+  - import_tasks: ../handlers/main.yml
+
+  tasks:
+  - name: Write out dhcp file
+    template:
+      src: ../templates/dhcpd.conf.j2
+      dest: /etc/dhcp/dhcpd.conf
+    notify:
+      - restart dhcpd
+    when: not uefi
+  - name: Write out dhcp file (UEFI)
+    template:
+      src: ../templates/dhcpd-uefi.conf.j2
+      dest: /etc/dhcp/dhcpd.conf
+    notify:
+      - restart dhcpd
+    when: uefi
+  

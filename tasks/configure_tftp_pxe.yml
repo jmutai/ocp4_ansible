@@ -1,0 +1,39 @@
+---
+# Configure OCP4 TFTP/PXE on Helper Node
+
+- hosts: all
+  vars_files:
+    - ../vars/main.yml
+  handlers:
+  - import_tasks: ../handlers/main.yml
+
+  tasks:
+  - name: Set the bootstrap specific tftp file
+    template:
+      src: ../templates/pxe-bootstrap.j2
+      dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ bootstrap.macaddr | lower | regex_replace (':', '-')}}"
+      mode: 0555
+    notify:
+      - restart tftp
+    when: bootstrap is defined
+
+  - name: Set the master specific tftp files
+    template:
+      src: ../templates/pxe-master.j2
+      dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ item.macaddr | regex_replace (':', '-')}}"
+      mode: 0555
+    with_items: "{{ masters | lower }}"
+    notify:
+      - restart tftp
+
+  - name: Set the worker specific tftp files
+    template:
+      src: ../templates/pxe-worker.j2
+      dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ item.macaddr | regex_replace (':', '-')}}"
+      mode: 0555
+    with_items: "{{ workers | lower }}"
+    notify:
+      - restart tftp
+    when:
+      - workers is defined
+      - workers | length > 0
