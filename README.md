@@ -17,8 +17,7 @@ $ tree
 │   ├── configure_bind_dns.yml
 │   ├── configure_dhcpd.yml
 │   ├── configure_haproxy_lb.yml
-│   ├── configure_tftp_pxe.yml
-│   └── validate_host_names.yaml
+│   └── configure_tftp_pxe.yml
 ├── templates
 │   ├── default.j2
 │   ├── dhcpd-uefi.conf.j2
@@ -32,6 +31,8 @@ $ tree
 │   └── zonefile.j2
 └── vars
     └── main.yml
+
+5 directories, 21 files
 ```
 
 The `tasks` folder contain all the tasks to configure:
@@ -39,3 +40,14 @@ The `tasks` folder contain all the tasks to configure:
 - DHCP Server
 - HAProxy Load balancer
 - PXE / TFTP Server
+
+### Setting variables
+Modify `vars/main.yml` and set all required variables for configuring DNS, DHCP, HAProxy and TFTP/PXE boot.
+
+```bash
+vim vars/main.yml
+```
+
+### Running the tasks with Ansible
+
+This tasks in this repository are not functional on their own. You need to follow our guide on [computingforgeeks.com](https://computingforgeeks.com) shared in the link below:
