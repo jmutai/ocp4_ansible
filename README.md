@@ -1,4 +1,4 @@
-## OpenShift 4 Ansible tasks and Jinja templates for Bastion/Helper Node setup
+## Ansible Playbook for OpenShift 4 and Jinja templates for Bastion/Helper Node setup
 
 Here is the directory structure of all the files in this directory:
 
