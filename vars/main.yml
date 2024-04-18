@@ -5,7 +5,7 @@ disk: vda                                  #disk where you are installing RHCOS 
 helper:
   name: "bastion"                          #hostname for your helper node
   ipaddr: "192.168.100.254"                #current IP address of the helper
-  networkifacename: "ens3"                 #interface of the helper node,ACTUAL name of the interface, NOT the NetworkManager name
+  networkifacename: "ens3"                 #interface of the helper node,ACTUAL name of the interface, NOT the NetworkManager name, check with $ ip ad
 dns:
   domain: "example.com"                    #DNS server domain. Should match  baseDomain inside the install-config.yaml file.
   clusterid: "ocp4"                        #needs to match what you will for metadata.name inside the install-config.yaml file
