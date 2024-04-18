@@ -9,7 +9,7 @@
 
   tasks:
   - name: Set the bootstrap specific tftp file
-    template:
+    ansible.builtin.template:
       src: ../templates/pxe-bootstrap.j2
       dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ bootstrap.macaddr | lower | regex_replace (':', '-')}}"
       mode: 0555
@@ -18,7 +18,7 @@
     when: bootstrap is defined
 
   - name: Set the master specific tftp files
-    template:
+    ansible.builtin.template:
       src: ../templates/pxe-master.j2
       dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ item.macaddr | regex_replace (':', '-')}}"
       mode: 0555
@@ -27,7 +27,7 @@
       - restart tftp
 
   - name: Set the worker specific tftp files
-    template:
+    ansible.builtin.template:
       src: ../templates/pxe-worker.j2
       dest: "/var/lib/tftpboot/pxelinux.cfg/01-{{ item.macaddr | regex_replace (':', '-')}}"
       mode: 0555
